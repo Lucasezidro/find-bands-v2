@@ -1,4 +1,3 @@
-import 'dayjs/locale/pt-br'
 import {
   Card,
   CardContent,
@@ -9,17 +8,12 @@ import {
 import { auth } from '@/permissions/permissions'
 import { ButtonRedirectToBandPage } from './button-redirect-to-bands-page'
 import { getBands } from '@/app/http/get-bands'
-import dayjs from 'dayjs'
+import { formatDate } from '@/helpers/format-date'
 
 export async function HighLightedBands() {
-  dayjs.locale('pt-br')
   const { user } = await auth()
 
   const bands = await getBands(user.userId)
-
-  function formatDate(date?: string) {
-    return dayjs(date).format('DD[ de ]MMMM[ de ]YYYY')
-  }
 
   return (
     <div className="max-w-[50rem] flex flex-col items-center text-center">

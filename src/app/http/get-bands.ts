@@ -13,11 +13,7 @@ export interface GetBandsResponse {
 }
 
 export async function getBands(userId: string) {
-  try {
-    const response = await api.get(`bands/${userId}`).json<GetBandsResponse>()
+  const response = await api.get(`bands/${userId}`).json<GetBandsResponse>()
 
-    return response
-  } catch (err) {
-    console.log(err, 'aqui de novo')
-  }
+  return response
 }
