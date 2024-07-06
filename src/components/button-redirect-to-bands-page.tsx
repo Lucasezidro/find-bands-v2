@@ -13,7 +13,7 @@ export function ButtonRedirectToBandPage({
   const router = useRouter()
 
   function goToBandPage(bandId: string) {
-    router.push(`/band/${bandId}`)
+    router.push(`/list-bands/${bandId}`)
   }
 
   return (

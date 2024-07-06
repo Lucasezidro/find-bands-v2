@@ -1,4 +1,5 @@
 import { FormEvent, useState, useTransition } from 'react'
+import { toast } from 'sonner'
 
 interface FormState {
   success: boolean
@@ -37,6 +38,7 @@ export function useFormState(
 
       setFormState(result)
     })
+    toast.success('Operação realizada com sucesso!')
   }
 
   return [formState, handleSubmit, isPending] as const

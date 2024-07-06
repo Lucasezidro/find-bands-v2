@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator'
-import { FormSignIn } from './form-sign-in'
 import Link from 'next/link'
+import { FormSignInAsMember } from './form-sign-in-as-member'
 
 export default function SignIn() {
   return (
@@ -8,22 +8,16 @@ export default function SignIn() {
       <div className="absolute right-16 top-7 space-x-4">
         <Link
           className="text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400"
-          href="/auth/sign-up"
+          href="/auth/sign-in"
         >
-          Criar uma conta
-        </Link>
-        <Link
-          className="text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400"
-          href="/auth/member/sign-in"
-        >
-          Logar como membro
+          Voltar
         </Link>
       </div>
-      <h1 className="text-xl font-bold">Acessar minha conta</h1>
+      <h1 className="text-xl font-bold">Acessar minha conta de membro</h1>
 
       <Separator />
 
-      <FormSignIn />
+      <FormSignInAsMember />
     </div>
   )
 }

@@ -17,10 +17,8 @@ export function ButtonBandPageRedirect({
   }
 
   return (
-    <div className="max-w-[22rem] w-full absolute bottom-4">
-      <Button onClick={redirectToBandPage} className="w-full">
-        Ver detalhes
-      </Button>
-    </div>
+    <Button onClick={redirectToBandPage} className="w-full mt-4">
+      Ver detalhes
+    </Button>
   )
 }

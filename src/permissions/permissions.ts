@@ -28,13 +28,15 @@ export async function auth() {
 export async function getBandByuserId() {
   const { user } = await auth()
 
-  console.log(user.userId)
-
   if (!user) {
     return null
   }
 
-  const bands = await getBands(user.userId)
+  const band = await getBands(user.userId)
 
-  return bands
+  if (!band) {
+    return null
+  }
+
+  return band
 }
