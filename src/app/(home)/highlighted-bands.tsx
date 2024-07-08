@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from './ui/card'
+} from '../../components/ui/card'
 import { getBandByuserId } from '@/permissions/permissions'
-import { ButtonRedirectToBandPage } from './button-redirect-to-bands-page'
+import { ButtonRedirectToBandPage } from '../../components/button-redirect-to-bands-page'
 import { formatDate } from '@/helpers/format-date'
 
 export async function HighLightedBands() {
@@ -14,7 +14,7 @@ export async function HighLightedBands() {
 
   const band = bandResponse?.band
 
-  console.log(bandResponse)
+  console.log(band)
 
   return (
     <div className="max-w-[50rem] flex flex-col items-center text-center">

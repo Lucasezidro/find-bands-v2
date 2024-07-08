@@ -6,6 +6,9 @@ export interface GetBandsResponse {
     bandName: string
     style: string
     description: string
+    favoritCount: number
+    isFavorit: boolean
+    messages: string
     createdAt: Date
     updatedAt: Date
     userAdminId: string

@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Music } from 'lucide-react'
+import { Heart, Music } from 'lucide-react'
 import { listBands } from '../http/list-bands'
 import { ButtonBandPageRedirect } from './button-band-page-redirect'
 import { cookies } from 'next/headers'
@@ -83,7 +83,24 @@ export default async function FindBands() {
                 <CardHeader>
                   <div>
                     <div className="space-y-4">
-                      <CardTitle>{band.bandName}</CardTitle>
+                      <CardTitle className="flex items-center gap-20 relative">
+                        {band.bandName}
+
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <div className="flex items-center gap-2 text-sm absolute right-0 top-0 text-red-600 dark:text-red-500">
+                                <Heart className="size-3" />
+                                {band.favoritCount}
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              Quantidade de usuarios que marcaram essa banda
+                              como favorita
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </CardTitle>
 
                       <CardDescription>{band.description}</CardDescription>
                     </div>

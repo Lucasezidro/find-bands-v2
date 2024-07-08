@@ -15,6 +15,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { formatDate } from '@/helpers/format-date'
 import { buildAbility } from '@/permissions/guards/ability'
 import { Can, GuardContext } from '@/permissions/guards/guards-context'
@@ -23,34 +24,15 @@ import { AlertCircle, Check, FileMusic, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
+import { BandPageProps } from './@types/band-page-type'
+import Image from 'next/image'
 
-interface BandPageProps {
-  members: {
-    id: string
-    name: string
-    email: string
-    office: string
-    avatar?: string
-    createdAt: Date
-    updatedAt: Date
-    bandRoleId: string
-  }[]
-  band: {
-    bandId: string
-    bandName: string
-    style: string
-    description: string
-    createdAt: Date
-    updatedAt: Date
-    userAdminId: string
-  }
-  role: 'ADMIN' | 'MEMBER' | 'FINDER'
-  isUserBandAdmin: boolean
-}
+import eventImage from '../../../assets/event.webp'
 
 export function BandPageById({
   members,
   band,
+  events,
   role,
   isUserBandAdmin,
 }: BandPageProps) {
@@ -97,12 +79,47 @@ export function BandPageById({
                 :
               </h1>
 
-              <div className="mt-56">
-                <span className="flex flex-col items-center gap-4 justify-center text-muted-foreground">
-                  <FileMusic className="size-10" />
-                  Ainda não ha eventos para serem exibidos.
-                </span>
-              </div>
+              {events.length === 0 ? (
+                <div className="mt-56">
+                  <span className="flex flex-col items-center gap-4 justify-center text-muted-foreground">
+                    <FileMusic className="size-10" />
+                    Ainda não ha eventos para serem exibidos.
+                  </span>
+                </div>
+              ) : (
+                <div>
+                  {events.slice(0, 1).map((event) => {
+                    return (
+                      <div key={event.eventId}>
+                        {event.isEventHasPast && (
+                          <div className="flex flex-col items-center justify-center gap-4">
+                            <h1 className="text-lg font-bold">
+                              Sobre o Evento:
+                            </h1>
+                            <div>
+                              <span className="text-muted-foreground">
+                                aconteceu no dia:{' '}
+                                {formatDate(event.eventDate.toString())}
+                              </span>
+                            </div>
+                            <span>{event.description}</span>
+
+                            <Image
+                              src={eventImage}
+                              alt=""
+                              className="rounded-lg"
+                            />
+
+                            <Button variant="ghost" className="mt-10">
+                              Ver mais eventos
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
 
             <div className="col-span-4 p-8 flex flex-col items-center gap-4 border-r border-muted-foreground">
@@ -206,7 +223,9 @@ export function BandPageById({
                             <div className="mt-4">
                               <Button
                                 onClick={() =>
-                                  router.push(`/member/${member.id}`)
+                                  router.push(
+                                    `/list-bands/${band.bandId}/member/${member.id}`,
+                                  )
                                 }
                                 variant="secondary"
                               >
@@ -237,16 +256,6 @@ export function BandPageById({
                 </span>
               )}
 
-              <div className="text-center flex flex-col gap-2">
-                <span className="text-sm mb-4">
-                  Aqui segue uma breve descrição da {band.bandName}:
-                </span>
-
-                <p className="text-sm text-muted-foreground">
-                  {band.description}
-                </p>
-              </div>
-
               <div className="flex flex-col gap-4">
                 {isUserBandAdmin ? (
                   <div className="flex flex-col items-center justify-center gap-4">
@@ -258,9 +267,25 @@ export function BandPageById({
                     >
                       Adicionar um novo membro
                     </Button>
+                    <Separator />
+                    <span>
+                      <span className="text-emerald-700 dark:text-emerald-400">
+                        {band.favoritCount}
+                      </span>{' '}
+                      usuarios favoritaram a sua banda
+                    </span>
                   </div>
                 ) : (
                   <>
+                    <div className="text-center flex flex-col gap-2 mb-10">
+                      <span className="text-sm mb-4">
+                        Aqui segue uma breve descrição da {band.bandName}:
+                      </span>
+
+                      <p className="text-sm text-muted-foreground">
+                        {band.description}
+                      </p>
+                    </div>
                     <span className="text-muted-foreground text-sm">
                       Se interssou ?
                     </span>

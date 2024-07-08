@@ -1,5 +1,5 @@
-import { FinderUser } from '@/components/finder-user'
-import { HighLightedBands } from '@/components/highlighted-bands'
+import { FinderUser } from '@/app/(home)/finder-user'
+import { HighLightedBands } from '@/app/(home)/highlighted-bands'
 import { auth } from '@/permissions/permissions'
 import { LogOut } from 'lucide-react'
 import Link from 'next/link'
@@ -10,6 +10,18 @@ export default async function Home() {
   return (
     <>
       <div className="flex items-center gap-4 absolute right-16 top-7">
+        <Link
+          className="text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center gap-2"
+          href="/appointments"
+        >
+          Meus Agendamentos
+        </Link>
+        <Link
+          className="text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center gap-2"
+          href="/events"
+        >
+          Meu Eventos
+        </Link>
         <a
           className="text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center gap-2"
           href="/api/auth/sign-out"
